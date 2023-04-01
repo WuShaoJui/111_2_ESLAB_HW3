@@ -1,3 +1,3 @@
 # 111_2_ESLAB_HW3
-Execution steps:
+Usage:
 1. sudo python HW3.py
