@@ -1,5 +1,5 @@
 # ble_scan_connect.py:
-from bluepy.btle import Peripheral, UUID
+from bluepy.btle import Peripheral, UUID, AssignedNumbers
 from bluepy.btle import Scanner, DefaultDelegate
 class ScanDelegate(DefaultDelegate):
     def __init__(self):
@@ -37,12 +37,12 @@ try:
     testService = dev.getServiceByUUID(UUID(0xfff0))
     for ch in testService.getCharacteristics():
         print (str(ch))
-#
-    ch = dev.getCharacteristics(uuid=UUID(0xfff3))[0]
-    msg = 2
-    ch.write(msg.to_bytes(2, 'big'))
-    # if (ch.supportsRead()):
-    #     print (ch.read())
+#   
+    ch = dev.getCharacteristics(uuid=UUID(0xfff2))[0]
+    desc = ch.getDescriptors(0x2902)
+    print ("desc", desc)
+    print ("Writing \"notification\" flag to descriptor with handle: ", desc[0].handle)
+    dev.writeCharacteristic(desc[0].handle, b"\x02\x00")
 #
 finally:
     dev.disconnect()
