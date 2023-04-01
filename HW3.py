@@ -40,8 +40,6 @@ try:
 #   
     ch = dev.getCharacteristics(uuid=UUID(0xfff2))[0]
     desc = ch.getDescriptors(0x2902)
-    print ("desc", desc)
-    print ("Writing \"notification\" flag to descriptor with handle: ", desc[0].handle)
     dev.writeCharacteristic(desc[0].handle, b"\x02\x00")
 #
 finally:
